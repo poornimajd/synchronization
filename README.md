@@ -1,0 +1,2 @@
+# synchronization
+lidar camera synchronization
