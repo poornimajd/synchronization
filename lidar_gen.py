@@ -29,7 +29,7 @@ def callback1(msg):
     
     global lidtnew
     
-    off=abs(float(lidt)-float(msg.data))#compute the offset between the sync event generated clock and the lidar topic header timestamp
+    off=float(lidt)-float(msg.data)#compute the offset between the sync event generated clock and the lidar topic header timestamp
     
     lidtnew=float(lidt)+float(off)#add the offset to the lidar topic timestamp
 
@@ -40,8 +40,8 @@ def callback_fun(msg):
     subnew=rospy.Subscriber('/signal',String,callback1)#get the sync event along with the timestamp from clock,passed as a String
 
     points = ros_numpy.point_cloud2.pointcloud2_to_array(msg)
-    newnew=str(lidtnew).ljust(13,'0')
-    np.save('./offset/imgs/'+str(newnew),points)#save the lidar pointcloud with timestamp as the name
+    nametosave=str(lidtnew).ljust(13,'0')
+    np.save('./offset/imgs/'+str(nametosave),points)#save the lidar pointcloud with timestamp as the name
 
 
 if __name__ == '__main__':
