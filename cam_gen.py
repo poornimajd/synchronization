@@ -23,12 +23,13 @@ import rospy
 import tf2_ros
 from cv_bridge import CvBridge, CvBridgeError
 import ros_numpy
+CV_BRIDGE = CvBridge()
 from sensor_msgs.msg import Image, CameraInfo, PointCloud2
 
 
 def callback1(msg):
     global imgtnew
-    off=abs(float(imgt)-float(msg.data))#compute the offset between the sync event generated clock and the image topic header timestamp
+    off=(float(imgt)-float(msg.data))#compute the offset between the sync event generated clock and the image topic header timestamp
     imgtnew=float(imgt)+float(off)#add the offset to the image topic timestamp
 
 def callback_fun(msg):
@@ -38,8 +39,8 @@ def callback_fun(msg):
     subnew=rospy.Subscriber('/signal',String,callback1) #get the sync event along with the timestamp from clock,passed as a String
 
     img = CV_BRIDGE.imgmsg_to_cv2(msg, 'bgr8')
-    newnew=str(imgtnew).ljust(13,'0')
-    cv2.imwrite('./offset/imgs/'+str(newnew)+'.jpeg',img)#save the image with timestamp as the name 
+    nametosave=str(imgtnew).ljust(13,'0')
+    cv2.imwrite('./offset/imgs/'+str(nametosave)+'.jpeg',img)#save the image with timestamp as the name 
 
 
 if __name__ == '__main__':
