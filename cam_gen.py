@@ -43,7 +43,7 @@ def callback_fun(msg):
     imgt=str(float(msg.header.stamp.secs)+(float(msg.header.stamp.nsecs)/(10**9))) 
 
     #get the sync event along with the timestamp from clock
-    subnew=rospy.Subscriber('/time_sync_signal',Time,callback1) 
+    subnew=rospy.Subscriber('time_sync_signal',Time,callback1) 
 
     #save the image using opencv 
     img = CV_BRIDGE.imgmsg_to_cv2(msg, 'bgr8')
@@ -57,5 +57,5 @@ if __name__ == '__main__':
 
 
     rospy.init_node('cam_lid_sync', anonymous=True)
-    sub=rospy.Subscriber('/image_raw',Image,callback_fun) #subscribe to image topic
+    sub=rospy.Subscriber('image_raw',Image,callback_fun) #subscribe to image topic
     rospy.spin()
