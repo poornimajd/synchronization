@@ -1,7 +1,7 @@
 # synchronization
 lidar camera synchronization
 
-Note-Currently implemented and tested using a recorded rosbag file,with lidar and camera both running at 10Hz for 10 minutes.
+Note-Currently implemented and tested using a recorded rosbag file,with lidar and camera both running at 10Hz for 10 minutes and also tested with live feed from the sensors.
 
 Method in brief-
    
@@ -13,5 +13,5 @@ Observation-
   
    The offset computed is not constant for the entire data,(has a 100ms variation),and hence the offset is computed everytime.
   
-   The data stored from the above method is comprised of lidar and image frames having the exact same timestamp.Example of data stored from        this sync method is put in the example folder.
+   The data stored from the above method is comprised of lidar and image frames having the exact same timestamp.
   
