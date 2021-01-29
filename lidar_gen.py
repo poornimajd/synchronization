@@ -43,7 +43,7 @@ def callback_fun(msg):
     lidt=str(float(msg.header.stamp.secs)+(float(msg.header.stamp.nsecs)/(10**9)))
 
     #get the sync event along with the timestamp from clock
-    subnew=rospy.Subscriber('/time_sync_signal',Time,callback1)
+    subnew=rospy.Subscriber('time_sync_signal',Time,callback1)
 
     #save the lidar pointcloud using numpy(np) with timestamp as the name
     points = ros_numpy.point_cloud2.pointcloud2_to_array(msg)
@@ -58,5 +58,5 @@ if __name__ == '__main__':
     rospy.init_node('cam_lid_sync', anonymous=True)
 
     #subscribe to lidar topic
-    sub=rospy.Subscriber('/velodyne_points',PointCloud2,callback_fun)
+    sub=rospy.Subscriber('velodyne_points',PointCloud2,callback_fun)
     rospy.spin()
