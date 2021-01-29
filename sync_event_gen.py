@@ -2,20 +2,23 @@
 
 import rospy
 from std_msgs.msg import Int64
-from std_msgs.msg import String
+from std_msgs.msg import String,Time
 
 
 if __name__=='__main__':
+    #initialize the node
     rospy.init_node("sync_event_publisher")
-    pub=rospy.Publisher('/signal',String,queue_size=10)#sync_event topic
-    rate=rospy.Rate(10)
-    while not rospy.is_shutdown():
-        msg=String()
-        #get the timestamp to be published on the sync event topic
-        nowtime=float(rospy.get_rostime().secs)+(float(rospy.get_rostime().nsecs)/(10**9))
-        
-        msg.data=str(nowtime)
 
-        pub.publish(msg.data)
+    #sync_event topic publish
+    pub=rospy.Publisher('time_sync_signal',Time,queue_size=5)
+
+    #Publish at a rate of 10Hz
+    rate=rospy.Rate(10)
+
+    #publish until the node is not shutdown
+    while not rospy.is_shutdown():
+        
+        #publish the current system time 
+        pub.publish(rospy.get_rostime())
         rate.sleep()
     rospy.loginfo("killed")
